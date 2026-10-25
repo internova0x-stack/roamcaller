@@ -1,0 +1,14 @@
+{
+  "name": "@roam/roambuddy",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./mock": "./src/mock.ts"
+  },
+  "scripts": {
+    "mock": "tsx src/mock-cli.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  }
+}

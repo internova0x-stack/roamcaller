@@ -1,0 +1,16 @@
+{
+  "name": "@roam/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=../../.env src/worker.ts",
+    "start": "tsx src/worker.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@roam/core": "workspace:*",
+    "@roam/db": "workspace:*",
+    "pg-boss": "^12.38.0"
+  }
+}
