@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: bold fintech-style bands — a dark hero with a live plan calculator, then alternating light bands of chunky pastel blocks, pill buttons and round flags. */
+/* Layout: bold fintech-style bands — a dark hero with a popular-plans card, then alternating light bands of chunky pastel blocks, pill buttons and round flags. */
 :root{
   --ink:#14112b;        /* deep night navy, headings + dark bands */
   --ink-2:#3d3a57;
@@ -132,25 +132,20 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .home-flags span{font-size:14px;color:var(--hero-muted)}
 @media (max-width:960px){.hero .wrap{grid-template-columns:1fr}}
 
-/* Plan calculator (the hero widget) */
 .calc{background:var(--card);color:var(--ink);border-radius:var(--r-lg);padding:22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.55);display:grid;gap:16px;min-width:0}
-.calc-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--paper);border-radius:999px;padding:4px}
-.calc-tabs button{border:0;background:transparent;border-radius:999px;padding:10px;font:600 15px var(--body);color:var(--muted);cursor:pointer}
-.calc-tabs button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 2px 8px rgba(20,17,43,.12)}
-.field{border:1.5px solid var(--line);border-radius:var(--r-md);padding:12px 14px;display:grid;gap:4px}
-.field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
-.field-row{display:flex;align-items:center;gap:10px}
-.field select{appearance:none;border:0;background:transparent;font:700 20px var(--display);color:var(--ink);width:100%;cursor:pointer;padding-right:20px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 0),linear-gradient(135deg,var(--muted) 50%,transparent 0);background-position:right 6px center,right 0 center;background-size:6px 6px;background-repeat:no-repeat}
-.sizes{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.sizes button{border:1.5px solid var(--line);background:var(--card);border-radius:var(--r-sm);padding:10px 4px;font:700 15px var(--display);color:var(--ink);cursor:pointer;display:grid;gap:2px}
-.sizes button small{font:500 11px var(--body);color:var(--muted)}
-.sizes button[aria-pressed="true"]{border-color:var(--orange);background:color-mix(in srgb,var(--orange) 12%,var(--card))}
-.quote{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px;border-radius:var(--r-md);background:var(--paper)}
-.quote .price{font:800 40px var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.quote .meta{font-size:13px;color:var(--muted);text-align:right}
+.calc-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.calc-head h2{font-size:22px}
+.calc-head span{font-size:12px;color:var(--muted)}
+.plan-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.plan-list li{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r-md);background:var(--paper)}
+.plan-list .flag{--s:36px;box-shadow:0 0 0 1px var(--line)}
+.plan-list div{flex:1;min-width:0}
+.plan-list b{display:block;font:700 17px var(--display)}
+.plan-list small{color:var(--muted);font-size:13px}
+.plan-list .amt{font:800 22px var(--display);font-variant-numeric:tabular-nums}
+.plan-list .amt small{display:block;text-align:right;font:500 11px var(--body)}
 .calc-foot{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--muted)}
 .calc-foot span::before{content:"✓ ";color:var(--good);font-weight:700}
-.calc .btn{width:100%}
 
 /* ---------- Trust ticker ---------- */
 .ticker{background:var(--orange);color:var(--on-orange);overflow:hidden;padding-block:14px}
@@ -165,13 +160,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .dest-tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .dest-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .dest{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:18px;display:flex;align-items:center;gap:14px;text-decoration:none;transition:transform .15s ease,border-color .15s ease;min-width:0}
-.dest:hover{transform:translateY(-2px);border-color:var(--orange)}
 .dest .flag{--s:44px;box-shadow:0 0 0 1px var(--line)}
 .dest div{min-width:0}
 .dest b{display:block;font:700 18px var(--display)}
 .dest small{color:var(--muted);font-size:14px}
 .dest small strong{color:var(--ink)}
-.dest-more{margin-top:28px;display:flex;justify-content:center}
 @media (max-width:1000px){.dest-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.dest-grid{grid-template-columns:1fr}}
 
@@ -236,16 +229,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ind p{color:var(--hero-muted);font-size:15px}
 .ind ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px}
 .ind li::before{content:"→ ";color:var(--orange)}
-.biz-cta{margin-top:40px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:center;background:var(--orange);color:var(--on-orange);border-radius:var(--r-lg);padding:clamp(24px,4vw,44px)}
+.biz-cta{margin-top:40px;display:grid;grid-template-columns:1fr;gap:24px;align-items:center;background:var(--orange);color:var(--on-orange);border-radius:var(--r-lg);padding:clamp(24px,4vw,44px)}
 .biz-cta h3{font-size:clamp(28px,3.4vw,40px)}
 .biz-cta p{margin-top:10px;max-width:52ch}
-.biz-cta .btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-.biz-cta .btn-dark{background:#14112b;color:#fff}
-.biz-cta .btn-ghost{color:var(--on-orange)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;border-top:1px solid rgba(255,255,255,.12);padding-top:32px}
 .stats b{display:block;font:800 clamp(32px,4vw,48px) var(--display);color:var(--orange);font-variant-numeric:tabular-nums}
 .stats span{color:var(--hero-muted);font-size:14px}
-@media (max-width:1000px){.biz-layout{grid-template-columns:1fr 1fr}.biz-cta{grid-template-columns:1fr}.biz-cta .btns{justify-content:flex-start}}
+@media (max-width:1000px){.biz-layout{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.biz-layout{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
 
 /* ---------- Compatibility ---------- */
@@ -336,8 +326,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       <a href="#faq">Help</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-ghost" href="#business">Partner with us</a>
-      <a class="btn btn-primary" href="#plan">Get an eSIM</a>
+      <a class="btn btn-primary" href="#destinations">See destinations</a>
     </div>
   </div>
 </header>
@@ -350,7 +339,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       <h1>Land abroad. <em>Already online.</em></h1>
       <p class="hero-sub">Roam Africa gives you a travel eSIM for 108+ countries in two minutes. No roaming bills, no SIM queues at the airport, and your home number stays on WhatsApp.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#plan">Find a plan</a>
+        <a class="btn btn-primary" href="#destinations">See destinations</a>
         <a class="btn btn-ghost" href="#how">See how it works</a>
       </div>
       <div class="home-flags">
@@ -361,40 +350,17 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       </div>
     </div>
 
-    <form class="calc" id="plan" aria-label="Plan finder">
-      <div class="calc-tabs" role="tablist">
-        <button type="button" role="tab" aria-selected="true" data-mode="trip">For my trip</button>
-        <button type="button" role="tab" aria-selected="false" data-mode="team">For my team</button>
-      </div>
-      <div class="field">
-        <label for="dest">I'm travelling to</label>
-        <div class="field-row">
-          <i class="flag f-ae" id="destFlag" style="--s:32px;box-shadow:0 0 0 1px var(--line)"></i>
-          <select id="dest"></select>
-        </div>
-      </div>
-      <div>
-        <div class="field" style="border:0;padding:0 2px 8px"><label>Data &amp; validity</label></div>
-        <div class="sizes" id="sizes"></div>
-      </div>
-      <div class="field" id="seatsField" hidden>
-        <label for="seats">Travellers on this plan</label>
-        <div class="field-row">
-          <select id="seats">
-            <option value="5">5 people</option><option value="10" selected>10 people</option><option value="25">25 people</option><option value="50">50 people</option>
-          </select>
-        </div>
-      </div>
-      <div class="quote" aria-live="polite">
-        <div>
-          <div style="font-size:13px;color:var(--muted)" id="quoteLabel">You pay</div>
-          <div class="price" id="price">$0</div>
-        </div>
-        <div class="meta" id="meta"></div>
-      </div>
-      <button class="btn btn-primary" type="submit" id="buy">Get this eSIM</button>
+    <aside class="calc" aria-label="Popular plans">
+      <div class="calc-head"><h2>Popular right now</h2><span>Sample prices</span></div>
+      <ul class="plan-list">
+        <li><i class="flag f-ae"></i><div><b>Dubai &amp; UAE</b><small>5 GB · 30 days</small></div><span class="amt">$12</span></li>
+        <li><i class="flag f-gb"></i><div><b>United Kingdom</b><small>5 GB · 30 days</small></div><span class="amt">$11</span></li>
+        <li><i class="flag f-sa"></i><div><b>Saudi Arabia</b><small>10 GB · 30 days</small></div><span class="amt">$22</span></li>
+        <li><i class="flag f-cn"></i><div><b>China</b><small>5 GB · 30 days</small></div><span class="amt">$14</span></li>
+        <li><i class="flag f-af"></i><div><b>Africa · 30 countries</b><small>3 GB · 15 days</small></div><span class="amt">$14</span></li>
+      </ul>
       <div class="calc-foot"><span>Instant QR code</span><span>Hotspot allowed</span><span>Top up any time</span></div>
-    </form>
+    </aside>
   </div>
 </section>
 
@@ -416,7 +382,6 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       <button type="button" role="tab" aria-selected="false" data-tab="global">Global plan</button>
     </div>
     <div class="dest-grid" id="destGrid"></div>
-    <div class="dest-more"><a class="btn btn-ghost" href="#plan">Search all 108+ countries</a></div>
   </div>
 </section>
 
@@ -555,10 +520,6 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
         <h3>Launch in days, not quarters</h3>
         <p>REST API, sandbox keys and a partner manager in Lagos. Most partners go live within two weeks.</p>
       </div>
-      <div class="btns">
-        <a class="btn btn-dark" href="#business">Talk to sales</a>
-        <a class="btn btn-ghost" href="#business">Read the API docs</a>
-      </div>
     </div>
     <div class="stats">
       <div><b>108+</b><span>countries covered</span></div>
@@ -629,8 +590,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <div class="sec-head" style="margin:0">
       <span class="eyebrow">Help centre</span>
       <h2>Questions before take-off</h2>
-      <p>Still stuck? Our team answers in English, French and Arabic, any hour.</p>
-      <div><a class="btn btn-primary" href="#faq">Chat with support</a></div>
+      <p>Our support team answers in English, French and Arabic, any hour.</p>
     </div>
     <div class="faq">
       <details open><summary>What is an eSIM?</summary><p>An eSIM is a SIM card built into your phone. Instead of putting in a plastic SIM, you scan a QR code and the plan downloads. You can keep your physical home SIM in at the same time.</p></details>
@@ -684,58 +644,8 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
 
 <script>
 (() => {
-  // Sample prices (USD) for the mock-up: [1GB/7d, 3GB/15d, 5GB/30d, 10GB/30d, 20GB/30d]
-  const DESTS = [
-    {k:"ae", name:"United Arab Emirates", p:[4.5,8,12,20,34]},
-    {k:"gb", name:"United Kingdom", p:[4,7.5,11,18,30]},
-    {k:"sa", name:"Saudi Arabia", p:[5,9,13,22,38]},
-    {k:"cn", name:"China", p:[5,10,14,24,40]},
-    {k:"us", name:"United States", p:[4.5,8.5,12,19,32]},
-    {k:"fr", name:"France", p:[4,7,10,17,28]},
-    {k:"tr", name:"Türkiye", p:[4,7.5,11,18,30]},
-    {k:"ca", name:"Canada", p:[5,9.5,14,23,39]},
-    {k:"ng", name:"Nigeria", p:[3,6,9,15,26]},
-    {k:"ke", name:"Kenya", p:[3.5,6.5,10,16,27]},
-    {k:"za", name:"South Africa", p:[3.5,6.5,10,16,27]},
-    {k:"af", name:"Africa (30 countries)", p:[7,14,22,36,60]},
-    {k:"gl", name:"Global (108+ countries)", p:[9,19,29,49,85]}
-  ];
-  const SIZES = [["1 GB","7 days"],["3 GB","15 days"],["5 GB","30 days"],["10 GB","30 days"],["20 GB","30 days"]];
-  const RATE_NGN = 1550; // illustrative
-
   const $ = s => document.querySelector(s);
-  const sel = $("#dest"), sizesEl = $("#sizes"), seats = $("#seats");
-  let mode = "trip", size = 2;
-
-  DESTS.forEach((d,i) => sel.add(new Option(d.name, i)));
-  SIZES.forEach(([gb,days],i) => {
-    const b = document.createElement("button");
-    b.type = "button"; b.innerHTML = `${gb}<small>${days}</small>`;
-    b.setAttribute("aria-pressed", i===size);
-    b.onclick = () => { size = i; [...sizesEl.children].forEach((c,j)=>c.setAttribute("aria-pressed", j===i)); render(); };
-    sizesEl.append(b);
-  });
-
   const fmt = n => "$" + (Math.round(n*100)/100).toFixed(n % 1 ? 2 : 0);
-  function render(){
-    const d = DESTS[sel.value];
-    $("#destFlag").className = "flag f-" + d.k;
-    let usd = d.p[size], label = "You pay";
-    if (mode === "team"){ const n = +seats.value; usd = usd * n * (n>=25 ? .8 : .88); label = `Team of ${n} · business rate`; }
-    $("#price").textContent = fmt(usd);
-    $("#quoteLabel").textContent = label;
-    $("#meta").innerHTML = `${SIZES[size][0]} · ${SIZES[size][1]}<br>≈ ₦${Math.round(usd*RATE_NGN).toLocaleString("en-NG")}`;
-    $("#buy").textContent = mode === "team" ? "Request team quote" : "Get this eSIM";
-  }
-  sel.onchange = render; seats.onchange = render;
-  document.querySelectorAll(".calc-tabs button").forEach(b => b.onclick = () => {
-    mode = b.dataset.mode;
-    document.querySelectorAll(".calc-tabs button").forEach(x => x.setAttribute("aria-selected", x===b));
-    $("#seatsField").hidden = mode !== "team";
-    render();
-  });
-  $("#plan").addEventListener("submit", e => { e.preventDefault(); const b=$("#buy"); const t=b.textContent; b.textContent = "Added. Checkout opens in the app"; setTimeout(()=>b.textContent=t,2200); });
-  render();
 
   // Destinations grid
   const TABS = {
@@ -745,7 +655,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
   };
   const grid = $("#destGrid");
   function showTab(t){
-    grid.innerHTML = TABS[t].map(([k,n,p]) => `<a class="dest" href="#plan"><i class="flag f-${k}"></i><div><b>${n}</b><small>from <strong>${fmt(p)}</strong></small></div></a>`).join("");
+    grid.innerHTML = TABS[t].map(([k,n,p]) => `<div class="dest"><i class="flag f-${k}"></i><div><b>${n}</b><small>from <strong>${fmt(p)}</strong></small></div></div>`).join("");
   }
   document.querySelectorAll(".dest-tabs button").forEach(b => b.onclick = () => {
     document.querySelectorAll(".dest-tabs button").forEach(x => x.setAttribute("aria-selected", x===b));
