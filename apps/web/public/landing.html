@@ -7,7 +7,7 @@
 <title>Roam Africa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Inter:wght@700&display=swap">
 <style>
 /* Layout: bold fintech-style bands — a dark hero with a popular-plans card, then alternating light bands of chunky pastel blocks, pill buttons and round flags. */
 :root{
@@ -31,6 +31,8 @@
   --hero-muted:#b8b4d4;
   --good:#16a35b;
   --display:"Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  /* Headings: SF Pro Bold on Apple devices (system font; Apple's licence doesn't allow serving it), Inter Bold elsewhere. */
+  --heading:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --body:"Figtree", "Segoe UI", system-ui, sans-serif;
   --r-lg:28px; --r-md:18px; --r-sm:12px;
 }
@@ -49,7 +51,7 @@
 
 *{box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:var(--display);line-height:1.04;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:var(--heading);font-weight:700;line-height:1.04;letter-spacing:-.02em;margin:0;text-wrap:balance}
 p{margin:0}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
@@ -57,7 +59,7 @@ a{color:inherit}
 .band{padding-block:clamp(64px,9vw,112px)}
 .eyebrow{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-deep)}
 .sec-head{display:grid;gap:14px;max-width:720px;margin-bottom:44px}
-.sec-head h2{font-size:clamp(34px,5vw,56px);font-weight:800}
+.sec-head h2{font-size:clamp(34px,5vw,56px)}
 .sec-head p{color:var(--muted);font-size:18px;max-width:60ch}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:14px 24px;font:600 16px var(--body);cursor:pointer;text-decoration:none;transition:transform .15s ease, background .15s ease}
@@ -121,7 +123,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero-copy{display:grid;gap:24px;min-width:0}
 .pill-tag{display:inline-flex;align-items:center;gap:10px;justify-self:start;padding:6px 14px 6px 6px;border-radius:999px;background:rgba(255,255,255,.08);font-size:14px;color:var(--hero-muted)}
 .pill-tag b{background:var(--orange);color:var(--on-orange);border-radius:999px;padding:3px 10px;font-size:12px;letter-spacing:.04em}
-.hero h1{font-size:clamp(46px,7.4vw,92px);font-weight:800}
+.hero h1{font-size:clamp(46px,7.4vw,92px)}
 .hero h1 em{font-style:normal;color:var(--orange)}
 .hero-sub{font-size:clamp(17px,1.6vw,20px);color:var(--hero-muted);max-width:52ch}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
@@ -185,7 +187,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .scr{display:none;flex-direction:column;gap:12px;height:100%;animation:fade .35s ease}
 .scr.on{display:flex}
 @keyframes fade{from{opacity:.3;transform:translateY(6px)}}
-.scr h4{font:800 20px var(--display);margin:0;letter-spacing:-.02em}
+.scr h4{font:700 20px var(--heading);margin:0;letter-spacing:-.02em}
 .scr .row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:#f3f1fa}
 .scr .row .flag{--s:26px}
 .scr .row b{flex:1}
@@ -267,7 +269,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
 .faq{display:grid;gap:10px}
 .faq details{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);padding:4px 20px}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;font:700 18px var(--display)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;font:700 18px var(--heading)}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--paper);font-size:22px;transition:transform .2s ease}
 .faq details[open] summary::after{transform:rotate(45deg);background:var(--orange);color:var(--on-orange)}
@@ -276,7 +278,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* ---------- App CTA ---------- */
 .app-cta{background:var(--sun);border-radius:var(--r-lg);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:center;color:var(--block-ink);overflow:hidden;position:relative}
-.app-cta h2{font-size:clamp(34px,5vw,60px);font-weight:800}
+.app-cta h2{font-size:clamp(34px,5vw,60px)}
 .app-cta p{color:var(--ink-2);margin-top:14px;max-width:48ch;font-size:18px}
 .big-num{font:800 clamp(90px,14vw,180px) var(--display);line-height:.85;letter-spacing:-.05em;color:var(--orange);text-align:right}
 .big-num small{display:block;font-size:18px;letter-spacing:0;color:var(--ink-2);font-family:var(--body);font-weight:600;margin-top:10px}
