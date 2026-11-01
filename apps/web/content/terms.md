@@ -1,6 +1,6 @@
 ## 1. About these terms
 
-These terms are a contract between you and Internova Technologies Limited, 431 Woodcrest Dr SE, Washington, DC 20032, USA, which owns the Roam Caller brand ("Roam Caller", "we", "us"). They apply when you visit our website or buy, install, top up or use a Roam Caller eSIM. By buying an eSIM you accept them. Our [Privacy Policy](/privacy) explains how we handle your personal data.
+These terms are a contract between you and Internova Technologies Inc, 431 Woodcrest Dr SE, Washington, DC 20032, USA, which owns the Roam Caller brand ("Roam Caller", "we", "us"). They apply when you visit our website or buy, install, top up or use a Roam Caller eSIM. By buying an eSIM you accept them. Our [Privacy Policy](/privacy) explains how we handle your personal data.
 
 **Eligibility.** You must be 18 or over and able to enter a binding contract. A parent or guardian may buy an eSIM for a child and is responsible for how it is used.
 
@@ -149,4 +149,4 @@ We never require consumers to use binding arbitration. Business customers resolv
 
 **Other.** If a court finds part of these terms invalid, the rest still applies. If we don't enforce a right straight away, we can still enforce it later.
 
-**Contact.** Internova Technologies Limited, owner of the Roam Caller brand, 431 Woodcrest Dr SE, Washington, DC 20032, USA. Email [support@roamcaller.com](mailto:support@roamcaller.com).
+**Contact.** Internova Technologies Inc, owner of the Roam Caller brand, 431 Woodcrest Dr SE, Washington, DC 20032, USA. Email [support@roamcaller.com](mailto:support@roamcaller.com).

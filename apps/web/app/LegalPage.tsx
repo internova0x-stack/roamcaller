@@ -79,7 +79,7 @@ export default function LegalPage(props: { file: string; title: string; effectiv
 
       <footer className="legal-foot">
         <div className="wrap">
-          <span>© 2026 Internova Technologies Limited. Roam Caller is a brand of Internova Technologies Limited.</span>
+          <span>© 2026 Internova Technologies Inc. Roam Caller is a brand of Internova Technologies Inc.</span>
           <span className="links">
             <a href="/">Home</a>
             <a href={props.other.href}>{props.other.label}</a>
