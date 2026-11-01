@@ -1,9 +1,9 @@
-# Roam Africa
+# Roam Caller
 
 Travel eSIMs for 108+ countries, sold to businesses (fintechs, airlines, travel agencies, banks,
 insurers, tourism agencies) and their customers. Head office: Lagos, Nigeria.
 
-eSIMs come from the RoamBuddy white-label partner API. Roam Africa adds partner accounts, its own
+eSIMs come from the RoamBuddy white-label partner API. Roam Caller adds partner accounts, its own
 pricing in local currencies, a prepaid balance per partner, a ledger, webhooks and (next) hosted
 eSIM screens that partners open inside their apps.
 
@@ -64,8 +64,8 @@ pnpm partner:create --name "Demo Pay" --slug demo-pay --currency NGN --test-cred
 Then, with the printed test key:
 
 ```bash
-curl localhost:4000/v1/plans?country=AE -H "Authorization: Bearer ra_test_…"
-curl -X POST localhost:4000/v1/orders -H "Authorization: Bearer ra_test_…" \
+curl localhost:4000/v1/plans?country=AE -H "Authorization: Bearer rc_test_…"
+curl -X POST localhost:4000/v1/orders -H "Authorization: Bearer rc_test_…" \
   -H "Idempotency-Key: demo-1" -H "Content-Type: application/json" \
   -d '{"plan_id":"<id from /v1/plans>","reference":"txn-001"}'
 ```

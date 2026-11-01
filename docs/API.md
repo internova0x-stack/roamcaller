@@ -1,24 +1,24 @@
-# Roam Africa Partner API
+# Roam Caller Partner API
 
 Sell travel eSIMs for 108+ countries inside your product. This is version 1.
 
-- Base URL: `https://api.roamafrica.com/v1` (to be confirmed before launch)
+- Base URL: `https://api.roamcaller.com/v1` (to be confirmed before launch)
 - JSON in and out. Amounts are integers in minor units (kobo for NGN, cents for USD) with their
   currency, plus a `display` string.
-- Every partner has two keys. `ra_test_…` keys use test balances and test eSIMs: nothing is
-  charged. `ra_live_…` keys are real.
+- Every partner has two keys. `rc_test_…` keys use test balances and test eSIMs: nothing is
+  charged. `rc_live_…` keys are real.
 
 ## Authentication
 
 ```
-Authorization: Bearer ra_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Authorization: Bearer rc_test_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 Keep keys on your server. Never put them in a mobile app or a web page.
 
 ## Prepaid balance
 
-Orders are paid from your prepaid balance with Roam Africa. When it can't cover an order, the
+Orders are paid from your prepaid balance with Roam Caller. When it can't cover an order, the
 order is refused with `402 insufficient_balance`. Top up by bank transfer; we credit the balance
 when it lands.
 
@@ -148,7 +148,7 @@ Give us an HTTPS URL and we send a `POST` for each event:
 { "id": "…", "type": "order.delivered", "mode": "test", "created_at": "…", "data": { "object": "order", … } }
 ```
 
-**Verify every webhook.** The `RoamAfrica-Signature` header looks like `t=1792900000,v1=5f3c…`.
+**Verify every webhook.** The `RoamCaller-Signature` header looks like `t=1792900000,v1=5f3c…`.
 Compute HMAC-SHA256 of `"<t>.<raw request body>"` with your webhook signing secret and compare it
 to `v1` in constant time. Reject the request if they differ or if `t` is more than 5 minutes old.
 
@@ -179,7 +179,7 @@ of order: use `id` to skip duplicates, and `GET /v1/orders/{id}` for the current
 | 400 | `idempotency_key_required` | Add an `Idempotency-Key` header. |
 | 401 | `unauthorized` | Check the API key. |
 | 402 | `insufficient_balance` | Top up your prepaid balance. |
-| 403 | `partner_paused` | Contact Roam Africa. |
+| 403 | `partner_paused` | Contact Roam Caller. |
 | 404 | `plan_not_found`, `order_not_found`, `esim_not_found` | Check the id. |
 | 409 | `request_in_progress` | The same Idempotency-Key is still being processed; retry shortly. |
 | 422 | `idempotency_key_reused` | Use a new key for a new purchase. |

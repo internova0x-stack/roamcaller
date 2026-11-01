@@ -37,7 +37,7 @@ export async function deliverWebhooks(db: Db, fetchImpl: typeof fetch = fetch, l
     try {
       const res = await fetchImpl(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "RoamAfrica-Signature": signWebhook(secret, body), "RoamAfrica-Event-Id": event.id },
+        headers: { "Content-Type": "application/json", "RoamCaller-Signature": signWebhook(secret, body), "RoamCaller-Event-Id": event.id },
         body,
         signal: AbortSignal.timeout(10_000),
       });

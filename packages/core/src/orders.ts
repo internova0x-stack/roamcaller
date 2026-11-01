@@ -47,7 +47,7 @@ export interface CreateOrderInput {
 
 export async function createOrder(db: Db, rbFor: RoamBuddyFor, input: CreateOrderInput): Promise<{ orderId: string; replayed: boolean }> {
   const { partner, mode, idempotencyKey } = input;
-  if (partner.status !== "active") throw new OrderError("partner_paused", 403, "This account is paused. Contact Roam Africa.");
+  if (partner.status !== "active") throw new OrderError("partner_paused", 403, "This account is paused. Contact Roam Caller.");
   const requestHash = createHash("sha256")
     .update(JSON.stringify({ planId: input.planId, reference: input.partnerReference ?? null }))
     .digest("hex");

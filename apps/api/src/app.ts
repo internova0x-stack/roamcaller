@@ -1,4 +1,4 @@
-// The Roam Africa partner API. Partners call it with `Authorization: Bearer ra_<mode>_…`.
+// The Roam Caller partner API. Partners call it with `Authorization: Bearer rc_<mode>_…`.
 // Docs for partners: docs/API.md.
 
 import Fastify, { type FastifyInstance, type FastifyRequest } from "fastify";
@@ -67,7 +67,7 @@ export function buildApp(deps: { db: Db; rbFor: RoamBuddyFor; logger?: boolean |
         const header = req.headers.authorization ?? "";
         const key = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
         const auth = key ? await authenticateKey(db, key) : null;
-        if (!auth) throw new ApiError(401, "unauthorized", "Send a valid API key as `Authorization: Bearer ra_test_…` or `ra_live_…`.");
+        if (!auth) throw new ApiError(401, "unauthorized", "Send a valid API key as `Authorization: Bearer rc_test_…` or `rc_live_…`.");
         req.partner = auth.partner;
         req.mode = auth.mode;
       });

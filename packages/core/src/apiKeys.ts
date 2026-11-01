@@ -15,9 +15,9 @@ export function hashKey(key: string): string {
   return createHash("sha256").update(key).digest("hex");
 }
 
-/** Creates a key like `ra_test_…`. The full key is returned once and never stored. */
+/** Creates a key like `rc_test_…`. The full key is returned once and never stored. */
 export async function createApiKey(tx: Tx, partnerId: string, mode: Mode): Promise<string> {
-  const key = `ra_${mode}_${randomToken(32)}`;
+  const key = `rc_${mode}_${randomToken(32)}`;
   await tx.insert(apiKeys).values({ partnerId, mode, prefix: key.slice(0, 12), hash: hashKey(key) });
   return key;
 }
@@ -25,7 +25,7 @@ export async function createApiKey(tx: Tx, partnerId: string, mode: Mode): Promi
 export type Partner = typeof partners.$inferSelect;
 
 export async function authenticateKey(tx: Tx, key: string): Promise<{ partner: Partner; mode: Mode } | null> {
-  if (!/^ra_(test|live)_[0-9A-Za-z]{32}$/.test(key)) return null;
+  if (!/^rc_(test|live)_[0-9A-Za-z]{32}$/.test(key)) return null;
   const rows = await tx
     .select({ partner: partners, keyId: apiKeys.id, mode: apiKeys.mode })
     .from(apiKeys)

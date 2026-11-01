@@ -29,7 +29,7 @@ describe("partner API", () => {
     const res = await app.inject({ method: "GET", url: "/v1/plans" });
     expect(res.statusCode).toBe(401);
     expect(res.json().error.code).toBe("unauthorized");
-    const bad = await app.inject({ method: "GET", url: "/v1/plans", headers: auth("ra_test_" + "x".repeat(32)) });
+    const bad = await app.inject({ method: "GET", url: "/v1/plans", headers: auth("rc_test_" + "x".repeat(32)) });
     expect(bad.statusCode).toBe(401);
   });
 

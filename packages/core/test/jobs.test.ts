@@ -27,7 +27,7 @@ describe("deliverWebhooks", () => {
     const received: { body: string; signature: string }[] = [];
     let status = 500;
     const fakeFetch = (async (_url: string, init: RequestInit) => {
-      received.push({ body: String(init.body), signature: (init.headers as Record<string, string>)["RoamAfrica-Signature"]! });
+      received.push({ body: String(init.body), signature: (init.headers as Record<string, string>)["RoamCaller-Signature"]! });
       return new Response(null, { status });
     }) as unknown as typeof fetch;
 
