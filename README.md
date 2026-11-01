@@ -95,12 +95,25 @@ Tests create and drop their own databases on that server and run against the moc
 
 ## Deploying
 
-- **API and worker:** containers on AWS ECS Fargate (eu-west-2) behind a NAT gateway with an
-  Elastic IP, because RoamBuddy may need to approve our IP address (docs/ROAMBUDDY.md).
-  The RoamBuddy client must not run on Vercel serverless functions, which have no fixed IP.
-- **Database:** Postgres 16 on RDS.
-- **Web:** Vercel.
-- **Secrets:** AWS Secrets Manager. Nothing secret goes in the repo.
+**Demo and partner sandbox (now): Vercel + Supabase.**
+
+- The Vercel project's Root Directory is `apps/web`. It serves the landing page, `/privacy`, `/terms`, the
+  partner API at `/api/v1/…` (the same Fastify app as `apps/api`, see `apps/web/app/api/[...path]`) and the
+  scheduled jobs at `/api/cron/…`.
+- Every build runs `apps/web/scripts/setup-db.ts` first: migrations, test plans, and the demo partner.
+- Test mode uses the built-in fake RoamBuddy (`packages/roambuddy/src/fake.ts`) until `ROAMBUDDY_SANDBOX_URL` is set.
+- Webhooks and stuck orders are handled after each API request; Vercel Cron runs a daily sweep (Hobby plan limit).
+
+| Vercel environment variable | Value |
+|---|---|
+| `DATABASE_URL` | Supabase transaction pooler URI (port 6543), with the database password filled in |
+| `DEMO_PARTNER_KEY` | Optional: `rc_test_` + 32 letters/digits; creates a demo partner with a $1,000 test balance |
+| `DEMO_PARTNER_CURRENCY` | Optional: `USD` (default) or `NGN` |
+| `CRON_SECRET` | Any long random string; Vercel sends it to the cron endpoints |
+
+**Production with real RoamBuddy orders:** keep Supabase and Vercel, and add one small server with a fixed IP
+address for the RoamBuddy calls if RoamBuddy requires IP approval. The worker in `apps/worker` can run there
+too, for minute-by-minute jobs.
 
 ## Not built yet
 

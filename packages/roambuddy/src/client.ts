@@ -186,3 +186,22 @@ function findToken(res: unknown): string | null {
   const candidates = [r?.token, r?.access_token, r?.accessToken, r?.data?.token, r?.data?.access_token, r?.data?.accessToken];
   return candidates.find((c): c is string => typeof c === "string" && c.length > 0) ?? null;
 }
+
+/** What the rest of the system uses: the real client, or the fake one in fake.ts. */
+export type RoamBuddyApi = Pick<
+  RoamBuddyClient,
+  | "authenticate"
+  | "wallet"
+  | "products"
+  | "product"
+  | "countries"
+  | "requestOrder"
+  | "completeOrder"
+  | "cancelOrder"
+  | "order"
+  | "esimDetails"
+  | "validateEsim"
+  | "activateEsim"
+  | "topupPackages"
+  | "applyTopup"
+>;

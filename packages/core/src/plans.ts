@@ -1,12 +1,12 @@
 import { and, eq, isNotNull, lt, sql } from "drizzle-orm";
 import { fxRates, plans, type Db, type Mode } from "@roam/db";
-import { extractPlans, type RoamBuddyClient } from "@roam/roambuddy";
+import { extractPlans, type RoamBuddyApi } from "@roam/roambuddy";
 import type { Partner } from "./apiKeys.ts";
 import { retailPriceMinor } from "./pricing.ts";
 import { toApiPlan } from "./views.ts";
 
 /** Copies RoamBuddy's catalogue for a mode into `plans`. Plans that disappeared are deactivated. */
-export async function syncPlans(db: Db, rb: RoamBuddyClient, mode: Mode): Promise<{ upserted: number; deactivated: number }> {
+export async function syncPlans(db: Db, rb: RoamBuddyApi, mode: Mode): Promise<{ upserted: number; deactivated: number }> {
   const found = extractPlans(await rb.products());
   if (!found.length) throw new Error("RoamBuddy returned no plans; leaving the catalogue unchanged");
   const started = new Date();

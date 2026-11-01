@@ -1,0 +1,45 @@
+// The partner API and background jobs, running inside the Vercel site.
+// One Fastify app and one small database pool per server instance, created on first use.
+
+import type { FastifyInstance } from "fastify";
+import { buildApp } from "@roam/api/app";
+import { connect, type Db } from "@roam/db";
+import { advanceStuckOrders, deliverWebhooks, roamBuddyFromEnv, type RoamBuddyFor } from "@roam/core";
+
+interface Backend {
+  db: Db;
+  rbFor: RoamBuddyFor;
+  app: FastifyInstance;
+}
+
+let backend: Promise<Backend> | null = null;
+
+export function getBackend(): Promise<Backend> {
+  backend ??= (async () => {
+    const { db } = connect(undefined, { max: 3 });
+    const rbFor = roamBuddyFromEnv();
+    const app = buildApp({ db, rbFor, logger: { level: process.env.LOG_LEVEL ?? "warn" } });
+    await app.ready();
+    return { db, rbFor, app };
+  })();
+  backend.catch(() => {
+    backend = null; // retry on the next request instead of caching a failure
+  });
+  return backend;
+}
+
+let lastSweep = 0;
+
+/**
+ * Sends due webhooks and retries stuck orders, at most once a minute per server
+ * instance. Runs after API requests, because Vercel's Hobby plan only allows
+ * daily cron jobs (see app/api/cron).
+ */
+export async function sweep(force = false): Promise<{ webhooks: { sent: number; failed: number }; advanced: number } | null> {
+  if (!force && Date.now() - lastSweep < 60_000) return null;
+  lastSweep = Date.now();
+  const { db, rbFor } = await getBackend();
+  const advanced = await advanceStuckOrders(db, rbFor);
+  const webhooks = await deliverWebhooks(db);
+  return { webhooks, advanced };
+}

@@ -2,7 +2,7 @@
 
 Sell travel eSIMs for 108+ countries inside your product. This is version 1.
 
-- Base URL: `https://api.roamcaller.com/v1` (to be confirmed before launch)
+- Base URL: `https://roamcaller.com/api/v1`. The sandbox runs there now with test keys; live keys come later.
 - JSON in and out. Amounts are integers in minor units (kobo for NGN, cents for USD) with their
   currency, plus a `display` string.
 - Every partner has two keys. `rc_test_…` keys use test balances and test eSIMs: nothing is

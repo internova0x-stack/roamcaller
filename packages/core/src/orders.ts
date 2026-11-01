@@ -12,7 +12,7 @@
 import { createHash } from "node:crypto";
 import { and, eq, inArray, isNull, lt, or, sql } from "drizzle-orm";
 import { esims, fxRates, idempotencyKeys, orders, partners, plans, type Db, type Mode, type Tx } from "@roam/db";
-import { extractInstall, extractOrderId, extractOrderStatus, RoamBuddyError, type RoamBuddyClient } from "@roam/roambuddy";
+import { extractInstall, extractOrderId, extractOrderStatus, RoamBuddyError, type RoamBuddyApi } from "@roam/roambuddy";
 import type { Partner } from "./apiKeys.ts";
 import { account, balance, post } from "./ledger.ts";
 import { retailPriceMinor } from "./pricing.ts";
@@ -147,7 +147,7 @@ export async function advanceOrder(db: Db, rbFor: RoamBuddyFor, orderId: string,
   }
 }
 
-async function stepRequest(db: Db, rb: RoamBuddyClient, order: Order, plan: Plan): Promise<Order> {
+async function stepRequest(db: Db, rb: RoamBuddyApi, order: Order, plan: Plan): Promise<Order> {
   let rbOrderId: string | null;
   try {
     rbOrderId = extractOrderId(await rb.requestOrder(plan.rbPlanId));
@@ -159,7 +159,7 @@ async function stepRequest(db: Db, rb: RoamBuddyClient, order: Order, plan: Plan
   return (await update(db, order, "created", { status: "reserved", rbOrderId, failureReason: null })) ?? order;
 }
 
-async function stepComplete(db: Db, rb: RoamBuddyClient, order: Order): Promise<Order> {
+async function stepComplete(db: Db, rb: RoamBuddyApi, order: Order): Promise<Order> {
   const rbOrderId = order.rbOrderId!;
   // Check first: an earlier attempt may have completed it even though we never heard back.
   let remote = await remoteStatus(rb, rbOrderId);
@@ -203,7 +203,7 @@ async function stepComplete(db: Db, rb: RoamBuddyClient, order: Order): Promise<
   });
 }
 
-async function stepDeliver(db: Db, rb: RoamBuddyClient, order: Order): Promise<Order> {
+async function stepDeliver(db: Db, rb: RoamBuddyApi, order: Order): Promise<Order> {
   let raw: unknown = null;
   try {
     raw = await rb.order(order.rbOrderId!);
@@ -282,7 +282,7 @@ async function update(tx: Tx, order: Order, from: Order["status"], set: Partial<
   return row ?? null;
 }
 
-async function remoteStatus(rb: RoamBuddyClient, rbOrderId: string) {
+async function remoteStatus(rb: RoamBuddyApi, rbOrderId: string) {
   try {
     return extractOrderStatus(await rb.order(rbOrderId));
   } catch {
@@ -290,7 +290,7 @@ async function remoteStatus(rb: RoamBuddyClient, rbOrderId: string) {
   }
 }
 
-async function cancelQuietly(rb: RoamBuddyClient, rbOrderId: string) {
+async function cancelQuietly(rb: RoamBuddyApi, rbOrderId: string) {
   try {
     await rb.cancelOrder(rbOrderId, "Could not be completed");
   } catch {
