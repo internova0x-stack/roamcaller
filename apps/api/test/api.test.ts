@@ -25,6 +25,17 @@ afterAll(async () => {
 const auth = (k = key) => ({ authorization: `Bearer ${k}` });
 
 describe("partner API", () => {
+  it("explains itself to someone opening it in a browser, and answers unknown paths in JSON", async () => {
+    for (const url of ["/v1", "/v1/"]) {
+      const res = await app.inject({ method: "GET", url });
+      expect(res.statusCode).toBe(200);
+      expect(res.json().status).toBe("running");
+    }
+    const missing = await app.inject({ method: "GET", url: "/v1/nope", headers: auth() });
+    expect(missing.statusCode).toBe(404);
+    expect(missing.json().error.code).toBe("not_found");
+  });
+
   it("rejects requests without a valid key", async () => {
     const res = await app.inject({ method: "GET", url: "/v1/plans" });
     expect(res.statusCode).toBe(401);

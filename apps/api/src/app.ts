@@ -42,7 +42,7 @@ const uuid = z.string().uuid();
 
 export function buildApp(deps: { db: Db; rbFor: RoamBuddyFor; logger?: boolean | object }): FastifyInstance {
   const { db, rbFor } = deps;
-  const app = Fastify({ logger: deps.logger ?? false, trustProxy: true });
+  const app = Fastify({ logger: deps.logger ?? false, trustProxy: true, routerOptions: { ignoreTrailingSlash: true } });
 
   app.setErrorHandler((err, req, reply) => {
     if (err instanceof ApiError || err instanceof OrderError) {
@@ -56,6 +56,21 @@ export function buildApp(deps: { db: Db; rbFor: RoamBuddyFor; logger?: boolean |
     req.log.error(err);
     return reply.status(500).send({ error: { code: "internal_error", message: "Something went wrong on our side. Retry with the same Idempotency-Key." } });
   });
+
+  // Someone opening the API address in a browser sees what it is and how to use it,
+  // rather than a bare "Not Found". No key needed.
+  app.get("/v1", async () => ({
+    object: "api",
+    name: "Roam Caller partner API",
+    status: "running",
+    message:
+      "This address is for code, not browsers. Send each request with your key in the header `Authorization: Bearer rc_test_…` (sandbox) or `rc_live_…`. Start with GET /api/v1/plans.",
+    endpoints: ["GET /plans", "GET /plans/:id", "POST /orders", "GET /orders", "GET /orders/:id", "GET /esims/:iccid", "POST /sessions", "GET /balance"],
+  }));
+
+  app.setNotFoundHandler((req, reply) =>
+    reply.status(404).send({ error: { code: "not_found", message: `There's no ${req.method} ${req.url.split("?")[0]}. The API lives under /api/v1, e.g. GET /api/v1/plans.` } }),
+  );
 
   app.get("/health", async (req, reply) => {
     try {
