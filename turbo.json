@@ -18,7 +18,8 @@
         "LOG_LEVEL",
         "ROAMBUDDY_*",
         "DEMO_PARTNER_NAME",
-        "PUBLIC_BASE_URL"
+        "PUBLIC_BASE_URL",
+        "ADMIN_PASSWORD"
       ]
     },
     "typecheck": {},

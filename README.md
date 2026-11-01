@@ -112,6 +112,7 @@ Tests create and drop their own databases on that server and run against the moc
 | `DEMO_PARTNER_KEY` | Optional: `rc_test_` + 32 letters/digits; creates a demo partner with a $1,000 test balance |
 | `DEMO_PARTNER_CURRENCY` | Optional: `USD` (default) or `NGN` |
 | `CRON_SECRET` | Any long random string; Vercel sends it to the cron endpoints |
+| `ADMIN_PASSWORD` | At least 12 characters; signs in to `/admin`, where partners and their sandbox keys are managed |
 
 **Production with real RoamBuddy orders:** keep Supabase and Vercel, and add one small server with a fixed IP
 address for the RoamBuddy calls if RoamBuddy requires IP approval. The worker in `apps/worker` can run there
