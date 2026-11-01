@@ -2,11 +2,35 @@
 
 Sell travel eSIMs for 108+ countries inside your product. This is version 1.
 
-- Base URL: `https://roamcaller.com/api/v1`. The sandbox runs there now with test keys; live keys come later.
+- Base URL: `https://www.roamcaller.com/api/v1`. The sandbox runs there now with test keys; live keys come later.
 - JSON in and out. Amounts are integers in minor units (kobo for NGN, cents for USD) with their
   currency, plus a `display` string.
 - Every partner has two keys. `rc_test_…` keys use test balances and test eSIMs: nothing is
   charged. `rc_live_…` keys are real.
+
+## Quick start
+
+Ask us for a sandbox key (`rc_test_…`). Then, in a terminal:
+
+```bash
+# 1. List plans for a country
+curl "https://www.roamcaller.com/api/v1/plans?country=AE" \
+  -H "Authorization: Bearer rc_test_YOUR_KEY"
+
+# 2. Buy one: use a plan id from step 1, and any unique Idempotency-Key
+curl -X POST https://www.roamcaller.com/api/v1/orders \
+  -H "Authorization: Bearer rc_test_YOUR_KEY" \
+  -H "Idempotency-Key: my-first-order" \
+  -H "Content-Type: application/json" \
+  -d '{"plan_id": "PLAN_ID", "customer_ref": "user-123"}'
+
+# 3. Check your sandbox balance
+curl https://www.roamcaller.com/api/v1/balance \
+  -H "Authorization: Bearer rc_test_YOUR_KEY"
+```
+
+The order comes back `delivered` with sandbox install codes. Sandbox plans with country code `ZZ` fail or
+deliver late on purpose, so you can test your error handling.
 
 ## Authentication
 

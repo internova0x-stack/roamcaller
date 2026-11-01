@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { marked } from "marked";
 
-// Renders a legal document from apps/web/content/<file>.md at build time.
+// Renders a Markdown document at build time: the legal pages from apps/web/content/<file>.md,
+// and the API docs from the repo's docs/API.md.
 // To change the wording, edit the Markdown file; the page picks it up on the next deploy.
 
 function slug(text: string): string {
@@ -20,7 +21,14 @@ function decode(text: string): string {
 }
 
 function render(file: string) {
-  const md = readFileSync(join(process.cwd(), "content", `${file}.md`), "utf8");
+  // A path containing "/" is relative to apps/web (e.g. "../../docs/API.md"); otherwise content/<file>.md.
+  // These pages are prerendered at build time, so the deployed server never reads the files:
+  // turbopackIgnore stops the bundler from shipping the whole project to trace this path.
+  const path = file.includes("/")
+    ? join(/* turbopackIgnore: true */ process.cwd(), file)
+    : join(/* turbopackIgnore: true */ process.cwd(), "content", `${file}.md`);
+  // The page shows its own title, so a leading "# Title" line is dropped.
+  const md = readFileSync(path, "utf8").replace(/^# .*\n+/, "");
   const sections: { id: string; title: string }[] = [];
   let html = marked.parse(md, { async: false, gfm: true }) as string;
   // Give each section heading an id so it can be linked (e.g. /terms#cancellations-and-refunds).
@@ -34,7 +42,13 @@ function render(file: string) {
   return { html, sections };
 }
 
-export default function LegalPage(props: { file: string; title: string; effective: string; other: { href: string; label: string } }) {
+export default function LegalPage(props: {
+  file: string;
+  title: string;
+  /** The line under the title: "Effective 3 April 2026" for legal pages. */
+  subtitle: string;
+  other: { href: string; label: string };
+}) {
   const { html, sections } = render(props.file);
   return (
     <>
@@ -59,7 +73,7 @@ export default function LegalPage(props: { file: string; title: string; effectiv
       <section className="legal-hero">
         <div className="wrap">
           <h1>{props.title}</h1>
-          <p>Effective {props.effective}</p>
+          <p>{props.subtitle}</p>
         </div>
       </section>
 

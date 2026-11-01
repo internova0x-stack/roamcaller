@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function TermsPage() {
-  return <LegalPage file="terms" title="Terms and Conditions" effective="3 April 2026" other={{ href: "/privacy", label: "Privacy Policy" }} />;
+  return <LegalPage file="terms" title="Terms and Conditions" subtitle="Effective 3 April 2026" other={{ href: "/privacy", label: "Privacy Policy" }} />;
 }
