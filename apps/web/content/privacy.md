@@ -2,7 +2,7 @@
 
 Roam Caller sells travel eSIMs: digital SIM profiles that give your phone mobile data in more than 108 countries. This policy explains what personal data we collect when you use our website, buy or top up an eSIM, or contact us, and what we do with it.
 
-**Who is responsible.** Internova Technologies Inc, 431 Woodcrest Dr SE, Washington, DC 20032, USA, which owns the Roam Caller brand ("Roam Caller", "we", "us") is the data controller for customers who buy from us directly.
+**Who is responsible.** Internova Technologies Inc, a Delaware corporation at 431 Woodcrest Dr SE, Washington, DC 20032, USA, which owns the Roam Caller brand ("Roam Caller", "we", "us") is the data controller for customers who buy from us directly.
 
 **If you bought through one of our business partners** (for example a bank, fintech app, airline, travel agency or insurer), that partner decides how your data is used in their product and is the controller for it. We process the data needed to issue and run your eSIM on the partner's behalf, under a written agreement with them. Their privacy notice applies to everything they do; this policy applies to what we do.
 

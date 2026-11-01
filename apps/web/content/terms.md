@@ -1,6 +1,6 @@
 ## 1. About these terms
 
-These terms are a contract between you and Internova Technologies Inc, 431 Woodcrest Dr SE, Washington, DC 20032, USA, which owns the Roam Caller brand ("Roam Caller", "we", "us"). They apply when you visit our website or buy, install, top up or use a Roam Caller eSIM. By buying an eSIM you accept them. Our [Privacy Policy](/privacy) explains how we handle your personal data.
+These terms are a contract between you and Internova Technologies Inc, a Delaware corporation at 431 Woodcrest Dr SE, Washington, DC 20032, USA, which owns the Roam Caller brand ("Roam Caller", "we", "us"). They apply when you visit our website or buy, install, top up or use a Roam Caller eSIM. By buying an eSIM you accept them. Our [Privacy Policy](/privacy) explains how we handle your personal data.
 
 **Eligibility.** You must be 18 or over and able to enter a binding contract. A parent or guardian may buy an eSIM for a child and is responsible for how it is used.
 
@@ -132,14 +132,14 @@ We will tell you why unless the law prevents us.
 
 ## 10. Governing law, disputes, changes and contact
 
-**Governing law.** These terms are governed by the laws of the District of Columbia, USA. If you are a consumer, you also keep the protection of the mandatory consumer laws of the country you live in.
+**Governing law.** These terms are governed by the laws of the State of Delaware, USA, where Internova Technologies Inc is incorporated. If you are a consumer, you also keep the protection of the mandatory consumer laws of the country you live in.
 
 **Resolving disputes.** Most problems are solved fastest by talking to us, so we ask you to follow these steps:
 
 1. **Contact support.** Email [support@roamcaller.com](mailto:support@roamcaller.com) with your order number and what went wrong. We reply within 2 working days and aim to fix it within 14 days.
 2. **Escalate.** If you're not happy with our answer, ask us to escalate your complaint. A senior team member reviews it and sends you a final written answer within 30 days of your first contact.
 3. **Mediation.** If that doesn't settle it, either of us may propose mediation by an independent mediator, online where possible. For consumer claims we pay the mediator's fees. Mediation is voluntary and doesn't stop you going to court.
-4. **Courts and regulators.** You may bring a claim in the courts of the country where you live or in the courts of the District of Columbia. You can also complain at any time to your national consumer protection body, such as Nigeria's Federal Competition and Consumer Protection Commission, the Competition Authority of Kenya or South Africa's National Consumer Commission.
+4. **Courts and regulators.** You may bring a claim in the courts of the country where you live or in the state or federal courts of Delaware. You can also complain at any time to your national consumer protection body, such as Nigeria's Federal Competition and Consumer Protection Commission, the Competition Authority of Kenya or South Africa's National Consumer Commission.
 
 We never require consumers to use binding arbitration. Business customers resolve disputes as set out in their partner agreement.
 
