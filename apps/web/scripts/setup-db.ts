@@ -5,6 +5,7 @@
 //   DATABASE_URL       Supabase connection string (transaction pooler, port 6543)
 //   DEMO_PARTNER_KEY   optional; a test key (rc_test_ + 32 letters/digits) for a demo partner
 //   DEMO_PARTNER_CURRENCY  optional, default USD
+//   DEMO_PARTNER_NAME      optional, default "Demo partner" (shown on the eSIM screens, e.g. "Cleva (demo)")
 
 import { and, eq } from "drizzle-orm";
 import { apiKeys, connect, fxRates, partners, runMigrations } from "@roam/db";
@@ -31,8 +32,10 @@ try {
     if (!/^rc_test_[0-9A-Za-z]{32}$/.test(key)) throw new Error("DEMO_PARTNER_KEY must be rc_test_ followed by 32 letters or digits");
     const currency = (process.env.DEMO_PARTNER_CURRENCY ?? "USD").toUpperCase();
     await db.transaction(async (tx) => {
+      const name = process.env.DEMO_PARTNER_NAME?.trim() || "Demo partner";
       let [partner] = await tx.select().from(partners).where(eq(partners.slug, "demo"));
-      partner ??= (await tx.insert(partners).values({ name: "Demo partner", slug: "demo", currency, markupBps: 2000 }).returning())[0]!;
+      partner ??= (await tx.insert(partners).values({ name, slug: "demo", currency, markupBps: 2000 }).returning())[0]!;
+      if (partner.name !== name) [partner] = await tx.update(partners).set({ name }).where(eq(partners.id, partner.id)).returning();
       const hash = hashKey(key);
       const [existing] = await tx.select().from(apiKeys).where(and(eq(apiKeys.hash, hash)));
       if (!existing) await tx.insert(apiKeys).values({ partnerId: partner.id, mode: "test", prefix: key.slice(0, 12), hash });

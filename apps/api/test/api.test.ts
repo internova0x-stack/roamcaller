@@ -67,6 +67,15 @@ describe("partner API", () => {
     expect(bal).toMatchObject({ currency: "NGN", available: { amount_minor: 5_000_000 - 1_581_000 }, held: { amount_minor: 0 } });
   });
 
+  it("creates a hosted-screens session for a customer", async () => {
+    const res = await app.inject({ method: "POST", url: "/v1/sessions", headers: auth(), payload: { customer_ref: "user-77" } });
+    expect(res.statusCode).toBe(201);
+    expect(res.json()).toMatchObject({ object: "session", customer_ref: "user-77" });
+    expect(res.json().url).toMatch(/\/esim\?t=es_[A-Za-z0-9_-]{32}$/);
+    const missing = await app.inject({ method: "POST", url: "/v1/sessions", headers: auth(), payload: {} });
+    expect(missing.statusCode).toBe(400);
+  });
+
   it("explains what's wrong with a bad order request", async () => {
     const noKey = await app.inject({ method: "POST", url: "/v1/orders", headers: auth(), payload: { plan_id: randomUUID() } });
     expect(noKey.json().error.code).toBe("idempotency_key_required");

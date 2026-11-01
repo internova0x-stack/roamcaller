@@ -42,6 +42,8 @@ export interface CreateOrderInput {
   mode: Mode;
   planId: string;
   partnerReference?: string | null;
+  /** The partner's id for the traveller, so "My eSIMs" can list their orders. */
+  customerRef?: string | null;
   idempotencyKey: string;
 }
 
@@ -49,7 +51,7 @@ export async function createOrder(db: Db, rbFor: RoamBuddyFor, input: CreateOrde
   const { partner, mode, idempotencyKey } = input;
   if (partner.status !== "active") throw new OrderError("partner_paused", 403, "This account is paused. Contact Roam Caller.");
   const requestHash = createHash("sha256")
-    .update(JSON.stringify({ planId: input.planId, reference: input.partnerReference ?? null }))
+    .update(JSON.stringify({ planId: input.planId, reference: input.partnerReference ?? null, customer: input.customerRef ?? null }))
     .digest("hex");
 
   const result = await db.transaction(async (tx) => {
@@ -88,6 +90,7 @@ export async function createOrder(db: Db, rbFor: RoamBuddyFor, input: CreateOrde
         mode,
         planId: plan.id,
         partnerReference: input.partnerReference ?? null,
+        customerRef: input.customerRef ?? null,
         priceMinor,
         currency: partner.currency,
         costUsdCents: plan.costUsdCents,

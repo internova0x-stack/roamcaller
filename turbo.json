@@ -16,7 +16,9 @@
         "DEMO_PARTNER_CURRENCY",
         "CRON_SECRET",
         "LOG_LEVEL",
-        "ROAMBUDDY_*"
+        "ROAMBUDDY_*",
+        "DEMO_PARTNER_NAME",
+        "PUBLIC_BASE_URL"
       ]
     },
     "typecheck": {},

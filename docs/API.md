@@ -75,7 +75,8 @@ with a different body returns `422 idempotency_key_reused`.
 { "plan_id": "aadd5366-ab92-4ac1-b032-120f3a3e7471", "reference": "txn-001" }
 ```
 
-`reference` (optional, up to 100 characters) is your own id, returned on the order and webhooks.
+`reference` (optional, up to 100 characters) is your own id for the purchase, returned on the order and webhooks.
+`customer_ref` (optional, up to 100 characters) is your own id for the customer; see Hosted eSIM screens.
 
 Response `201`:
 
@@ -132,6 +133,33 @@ Order `status`:
 
 `GET /v1/esims/{iccid}` returns the eSIM with its install details and latest usage. Usage is
 refreshed about every 30 minutes.
+
+## Hosted eSIM screens
+
+The fastest way to launch: we host the screens (plans, checkout, install, My eSIMs), and your app opens them for a
+signed-in customer. See them at https://www.roamcaller.com/demo.
+
+1. Your server creates a session for the customer:
+
+   `POST /v1/sessions`
+
+   ```json
+   { "customer_ref": "your-user-id-123" }
+   ```
+
+   Response `201`:
+
+   ```json
+   { "object": "session", "url": "https://www.roamcaller.com/esim?t=es_…", "expires_at": "…", "customer_ref": "your-user-id-123" }
+   ```
+
+2. Your app opens `url` in a web view. The link works for 2 hours and only for that customer. Never put your API key
+   in the app; create sessions from your server.
+3. When the customer pays, we take the price from your prepaid balance and send `order.delivered` with
+   `customer_ref` set, so you can charge the customer's balance with you.
+
+`customer_ref` is your own id for the customer. Use the same value every time for the same person, so "My eSIMs"
+shows all of their eSIMs. You can also send it on `POST /v1/orders` when you build your own screens.
 
 ## Webhooks
 

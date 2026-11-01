@@ -14,12 +14,19 @@ interface Backend {
   baseUrl: string;
 }
 
+let core: { db: Db; rbFor: RoamBuddyFor } | null = null;
+
+/** The database and RoamBuddy client, for pages that use the core directly (the eSIM screens). */
+export function getCore(): { db: Db; rbFor: RoamBuddyFor } {
+  core ??= { db: connect(undefined, { max: 3 }).db, rbFor: roamBuddyFromEnv() };
+  return core;
+}
+
 let backend: Promise<Backend> | null = null;
 
 export function getBackend(): Promise<Backend> {
   backend ??= (async () => {
-    const { db } = connect(undefined, { max: 3 });
-    const rbFor = roamBuddyFromEnv();
+    const { db, rbFor } = getCore();
     const app = buildApp({ db, rbFor, logger: { level: process.env.LOG_LEVEL ?? "warn" } });
     // Listening on localhost (rather than app.inject) avoids light-my-request, whose
     // ES-module dependency can't be loaded inside Vercel's bundled functions.

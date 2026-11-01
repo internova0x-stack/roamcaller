@@ -9,6 +9,7 @@ import {
   account,
   authenticateKey,
   balance,
+  createEmbedSession,
   createOrder,
   formatMinor,
   getOrderView,
@@ -94,12 +95,15 @@ export function buildApp(deps: { db: Db; rbFor: RoamBuddyFor; logger?: boolean |
       v1.post("/orders", async (req, reply) => {
         const idempotencyKey = z.string().min(1).max(255).safeParse(req.headers["idempotency-key"]);
         if (!idempotencyKey.success) throw new ApiError(400, "idempotency_key_required", "Send an Idempotency-Key header (any unique string, e.g. your transaction id).");
-        const body = z.object({ plan_id: uuid, reference: z.string().max(100).optional() }).parse(req.body);
+        const body = z
+          .object({ plan_id: uuid, reference: z.string().max(100).optional(), customer_ref: z.string().min(1).max(100).optional() })
+          .parse(req.body);
         const { orderId, replayed } = await createOrder(db, rbFor, {
           partner: req.partner,
           mode: req.mode,
           planId: body.plan_id,
           partnerReference: body.reference,
+          customerRef: body.customer_ref,
           idempotencyKey: idempotencyKey.data,
         });
         const view = await getOrderView(db, orderId);
@@ -137,6 +141,16 @@ export function buildApp(deps: { db: Db; rbFor: RoamBuddyFor; logger?: boolean |
           .where(and(eq(esims.iccid, iccid), eq(esims.partnerId, req.partner.id), eq(esims.mode, req.mode)));
         if (!esim) throw new ApiError(404, "esim_not_found", "No eSIM with this ICCID.");
         return toApiEsim(esim);
+      });
+
+      // Opens the hosted eSIM screens for one of the partner's users: call this from
+      // your server, then open the returned url in your app. It expires after 2 hours.
+      v1.post("/sessions", async (req, reply) => {
+        const body = z.object({ customer_ref: z.string().min(1).max(100) }).parse(req.body);
+        const { token, expiresAt } = await createEmbedSession(db, { partnerId: req.partner.id, mode: req.mode, customerRef: body.customer_ref });
+        const base = (process.env.PUBLIC_BASE_URL ?? "https://www.roamcaller.com").replace(/\/+$/, "");
+        reply.status(201);
+        return { object: "session", url: `${base}/esim?t=${token}`, expires_at: expiresAt.toISOString(), customer_ref: body.customer_ref };
       });
 
       v1.get("/balance", async (req) => {

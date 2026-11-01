@@ -100,6 +100,8 @@ Tests create and drop their own databases on that server and run against the moc
 - The Vercel project's Root Directory is `apps/web`. It serves the landing page, `/privacy`, `/terms`, the
   partner API at `/api/v1/…` (the same Fastify app as `apps/api`, see `apps/web/app/api/[...path]`) and the
   scheduled jobs at `/api/cron/…`.
+- Hosted eSIM screens for partner apps live at `/esim` (opened with a session from `POST /v1/sessions`), and the
+  partner demo, which shows them in a phone frame, at `/demo`. `DEMO_PARTNER_NAME` sets the name shown, e.g. "Cleva (demo)".
 - Every build runs `apps/web/scripts/setup-db.ts` first: migrations, test plans, and the demo partner.
 - Test mode uses the built-in fake RoamBuddy (`packages/roambuddy/src/fake.ts`) until `ROAMBUDDY_SANDBOX_URL` is set.
 - Webhooks and stuck orders are handled after each API request; Vercel Cron runs a daily sweep (Hobby plan limit).

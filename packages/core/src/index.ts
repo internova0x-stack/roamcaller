@@ -5,5 +5,6 @@ export * from "./orders.ts";
 export * from "./plans.ts";
 export * from "./pricing.ts";
 export * from "./roambuddy.ts";
+export * from "./sessions.ts";
 export * from "./views.ts";
 export * from "./webhooks.ts";

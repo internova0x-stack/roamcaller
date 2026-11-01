@@ -109,6 +109,8 @@ export const orders = pgTable(
     planId: uuid("plan_id").notNull().references(() => plans.id),
     /** The partner's own id for this purchase, e.g. their transaction id. */
     partnerReference: text("partner_reference"),
+    /** The partner's id for the traveller (their customer), used by "My eSIMs". */
+    customerRef: text("customer_ref"),
     status: text("status", { enum: ORDER_STATUSES }).notNull().default("created"),
     priceMinor: bigint("price_minor", { mode: "number" }).notNull(),
     currency: char("currency", { length: 3 }).notNull(),
@@ -127,6 +129,7 @@ export const orders = pgTable(
     index("orders_partner_created_idx").on(t.partnerId, t.createdAt),
     uniqueIndex("orders_rb_order_id_key").on(t.mode, t.rbOrderId),
     index("orders_status_idx").on(t.status),
+    index("orders_customer_idx").on(t.partnerId, t.mode, t.customerRef),
   ],
 );
 
@@ -207,4 +210,22 @@ export const webhookEvents = pgTable(
     createdAt: createdAt(),
   },
   (t) => [index("webhook_events_pending_idx").on(t.nextAttemptAt).where(sql`${t.deliveredAt} is null`)],
+);
+
+/**
+ * A short-lived link a partner creates for one of its users to open the hosted
+ * eSIM screens (/esim). The token itself is shown once; only its hash is stored.
+ */
+export const embedSessions = pgTable(
+  "embed_sessions",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    partnerId: uuid("partner_id").notNull().references(() => partners.id),
+    mode: text("mode", { enum: MODES }).notNull(),
+    customerRef: text("customer_ref").notNull(),
+    tokenHash: text("token_hash").notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [uniqueIndex("embed_sessions_token_hash_key").on(t.tokenHash)],
 );

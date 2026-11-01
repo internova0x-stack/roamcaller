@@ -52,6 +52,7 @@ export function toApiOrder(v: OrderView) {
     id: order.id,
     status: publicStatus(order.status),
     reference: order.partnerReference,
+    customer_ref: order.customerRef,
     plan: { id: plan.id, name: plan.name },
     price: { amount_minor: order.priceMinor, currency: order.currency, display: formatMinor(order.priceMinor, order.currency) },
     esim: esim ? toApiEsim(esim) : null,
