@@ -56,9 +56,16 @@ export function buildApp(deps: { db: Db; rbFor: RoamBuddyFor; logger?: boolean |
     return reply.status(500).send({ error: { code: "internal_error", message: "Something went wrong on our side. Retry with the same Idempotency-Key." } });
   });
 
-  app.get("/health", async () => {
-    await db.execute(sql`select 1`);
-    return { ok: true };
+  app.get("/health", async (req, reply) => {
+    try {
+      await db.execute(sql`select 1`);
+      return { ok: true };
+    } catch (err) {
+      // Database errors name the cause (wrong password, unknown host) without the password itself.
+      req.log.error(err);
+      const e = ((err as { cause?: unknown }).cause ?? err) as { code?: string; message?: string };
+      return reply.status(503).send({ ok: false, error: { code: "database_unreachable", message: `${e.code ? `${e.code}: ` : ""}${e.message ?? String(err)}` } });
+    }
   });
 
   app.register(

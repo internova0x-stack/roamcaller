@@ -10,6 +10,21 @@ export const dynamic = "force-dynamic";
 const HOP_BY_HOP = new Set(["connection", "content-length", "transfer-encoding", "keep-alive"]);
 
 async function handle(req: Request): Promise<Response> {
+  try {
+    return await serve(req);
+  } catch (err) {
+    // Startup failures (bad DATABASE_URL, a module that won't load) land here instead
+    // of a blank 500. The message names the problem without echoing the connection string.
+    console.error("api: request failed", err);
+    const e = err as { name?: string; code?: string; message?: string };
+    return Response.json(
+      { error: { code: "server_error", message: `${e.name ?? "Error"}${e.code ? ` (${e.code})` : ""}: ${e.message ?? String(err)}` } },
+      { status: 500 },
+    );
+  }
+}
+
+async function serve(req: Request): Promise<Response> {
   if (!process.env.DATABASE_URL) {
     return Response.json({ error: { code: "not_configured", message: "The API isn't connected to a database yet." } }, { status: 503 });
   }
