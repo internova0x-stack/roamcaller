@@ -1,9 +1,34 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": { "dependsOn": ["^build"], "outputs": [".next/**", "!.next/cache/**", "dist/**"] },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ],
+      "env": [
+        "DATABASE_URL",
+        "DEMO_PARTNER_KEY",
+        "DEMO_PARTNER_CURRENCY",
+        "CRON_SECRET",
+        "LOG_LEVEL",
+        "ROAMBUDDY_*"
+      ]
+    },
     "typecheck": {},
-    "test": { "env": ["DATABASE_URL", "TEST_DATABASE_URL"] },
-    "dev": { "cache": false, "persistent": true }
+    "test": {
+      "env": [
+        "DATABASE_URL",
+        "TEST_DATABASE_URL"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
   }
 }
