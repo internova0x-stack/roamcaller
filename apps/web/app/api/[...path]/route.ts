@@ -20,14 +20,14 @@ async function handle(req: Request): Promise<Response> {
     const e = err as { name?: string; code?: string; message?: string };
     return Response.json(
       { error: { code: "server_error", message: `${e.name ?? "Error"}${e.code ? ` (${e.code})` : ""}: ${e.message ?? String(err)}` } },
-      { status: 500 },
+      { status: 500, headers: { "cache-control": "no-store" } },
     );
   }
 }
 
 async function serve(req: Request): Promise<Response> {
   if (!process.env.DATABASE_URL) {
-    return Response.json({ error: { code: "not_configured", message: "The API isn't connected to a database yet." } }, { status: 503 });
+    return Response.json({ error: { code: "not_configured", message: "The API isn't connected to a database yet." } }, { status: 503, headers: { "cache-control": "no-store" } });
   }
   const { baseUrl } = await getBackend();
   const url = new URL(req.url);
@@ -50,6 +50,8 @@ async function serve(req: Request): Promise<Response> {
   res.headers.forEach((v, k) => {
     if (!HOP_BY_HOP.has(k) && k !== "content-encoding") out.set(k, v);
   });
+  // API answers are never cached: browsers and proxies always ask again.
+  if (!out.has("cache-control")) out.set("cache-control", "no-store");
   return new Response(body, { status: res.status, headers: out });
 }
 
