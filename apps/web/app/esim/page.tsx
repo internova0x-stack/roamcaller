@@ -28,6 +28,7 @@ export default async function PlansPage({ searchParams }: Props) {
       detail: `${dataLabel(p.data_mb)}${p.validity_days ? ` · ${p.validity_days} days` : ""}`,
       price: money({ display: p.price.display, currency: p.price.currency }),
       text: searchText(p),
+      countries: p.coverage.length,
     }));
 
   return (

@@ -3,6 +3,10 @@
 
 const names = new Intl.DisplayNames(["en"], { type: "region" });
 
+const AFRICA = new Set(
+  "NG GH KE ZA EG MA TN SN CI CM UG TZ RW ET DZ AO BJ BF BI CV CF TD KM CD CG DJ GQ ER SZ GA GM GN GW LS LR LY MG MW ML MR MU MZ NA NE ST SC SL SO SS SD TG ZM ZW".split(" "),
+);
+
 const ALIASES: Record<string, string[]> = {
   GB: ["uk", "britain", "great britain", "england", "london", "scotland", "wales"],
   US: ["usa", "america", "united states of america", "new york", "atlanta", "houston"],
@@ -37,7 +41,8 @@ export function searchText(plan: { name: string; coverage: string[] }): string {
     }
     parts.push(...(ALIASES[code] ?? []));
   }
-  if (plan.coverage.length > 1) parts.push("regional", "multi-country", "africa");
+  if (plan.coverage.length > 1) parts.push("regional", "multi-country");
+  if (plan.coverage.some((c) => AFRICA.has(c))) parts.push("africa");
   return parts.join(" | ").toLowerCase();
 }
 

@@ -14,11 +14,17 @@ export interface SearchPlan {
   detail: string;
   price: string;
   text: string;
+  /** How many countries the plan covers: single-country plans are listed first when searching. */
+  countries: number;
 }
 
 export function PlanSearch(props: { token: string; initial: string; plans: SearchPlan[] }) {
   const [q, setQ] = useState(props.initial);
-  const shown = useMemo(() => props.plans.filter((p) => matches(p.text, q)), [props.plans, q]);
+  const shown = useMemo(() => {
+    const hits = props.plans.filter((p) => matches(p.text, q));
+    // While searching, the country's own plan first, then regional, then global (stable within each).
+    return q.trim() ? [...hits].sort((a, b) => a.countries - b.countries) : hits;
+  }, [props.plans, q]);
 
   return (
     <>
