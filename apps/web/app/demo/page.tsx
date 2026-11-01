@@ -86,7 +86,32 @@ export default async function DemoPage() {
         <section className="demo-phone-wrap" aria-label="Phone preview">
           {"url" in demo ? (
             <div className="demo-phone">
-              <iframe title={`${demo.partnerName} travel eSIM screens`} src={demo.url} />
+              <div className="demo-screen">
+                <div className="demo-status" aria-hidden="true">
+                  <span className="time">9:41</span>
+                  <span className="island" />
+                  <span className="icons">
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+                      <rect x="0" y="8" width="3" height="4" rx="1" />
+                      <rect x="5" y="5.5" width="3" height="6.5" rx="1" />
+                      <rect x="10" y="3" width="3" height="9" rx="1" />
+                      <rect x="15" y="0" width="3" height="12" rx="1" />
+                    </svg>
+                    <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor">
+                      <path d="M8 2.2c2.2 0 4.2.8 5.7 2.2l1.2-1.3A10 10 0 0 0 8 .4 10 10 0 0 0 1.1 3.1l1.2 1.3A8.2 8.2 0 0 1 8 2.2Z" />
+                      <path d="M8 5.6c1.3 0 2.5.5 3.4 1.3l1.2-1.3A6.6 6.6 0 0 0 8 3.8c-1.7 0-3.3.6-4.6 1.8l1.2 1.3c.9-.8 2.1-1.3 3.4-1.3Z" />
+                      <circle cx="8" cy="10" r="1.8" />
+                    </svg>
+                    <svg width="26" height="12" viewBox="0 0 26 12" fill="none">
+                      <rect x="0.5" y="0.5" width="22" height="11" rx="3.5" stroke="currentColor" opacity=".5" />
+                      <rect x="2" y="2" width="17" height="8" rx="2" fill="currentColor" />
+                      <path d="M24 4v4c.8-.3 1.3-1.1 1.3-2S24.8 4.3 24 4Z" fill="currentColor" opacity=".5" />
+                    </svg>
+                  </span>
+                </div>
+                <iframe title={`${demo.partnerName} travel eSIM screens`} src={demo.url} />
+                <span className="demo-home" aria-hidden="true" />
+              </div>
             </div>
           ) : (
             <div className="demo-problem">{demo.problem}</div>
