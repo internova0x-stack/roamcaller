@@ -210,11 +210,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .scr .row .flag{--s:26px}
 .scr .row b{flex:1}
 .scr .cta{margin-top:auto;background:#fa2d48;color:#ffffff;border-radius:999px;padding:12px;text-align:center;font-weight:700}
-.qr{align-self:center;width:150px;height:150px;border-radius:14px;padding:10px;background:#fff;box-shadow:0 0 0 2px #14112b;
-  background-image:
-   linear-gradient(#14112b,#14112b),linear-gradient(#14112b,#14112b),linear-gradient(#14112b,#14112b);
-  background-size:36px 36px;background-repeat:no-repeat;background-position:10px 10px,104px 10px,10px 104px;position:relative}
-.qr::after{content:"";position:absolute;inset:52px 52px 10px 52px;background:repeating-conic-gradient(#14112b 0 25%,#fff 0 50%) 0 0/16px 16px}
 .signal{align-self:center;display:flex;gap:6px;align-items:flex-end;height:70px;margin-top:10px}
 .signal i{width:16px;border-radius:5px;background:#16a35b}
 .signal i:nth-child(1){height:25%}.signal i:nth-child(2){height:50%}.signal i:nth-child(3){height:75%}.signal i:nth-child(4){height:100%}
@@ -367,7 +362,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
         <li><i class="flag f-cn"></i><div><b>China</b><small>5 GB · 30 days</small></div><span class="amt">$14</span></li>
         <li><i class="flag f-af"></i><div><b>Africa · 30 countries</b><small>3 GB · 15 days</small></div><span class="amt">$14</span></li>
       </ul>
-      <div class="calc-foot"><span>Instant QR code</span><span>Hotspot allowed</span><span>Top up any time</span></div>
+      <div class="calc-foot"><span>Instant delivery</span><span>Hotspot allowed</span><span>Top up any time</span></div>
     </aside>
   </div>
 </section>
@@ -404,7 +399,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       </div>
       <ol class="steps">
         <li><button class="step" type="button" aria-pressed="true" data-step="0"><span class="n">1</span><span><h3>Choose your plan</h3><p>Pick a country or region and the data you need. Pay by card, bank transfer or mobile money.</p></span></button></li>
-        <li><button class="step" type="button" aria-pressed="false" data-step="1"><span class="n">2</span><span><h3>Scan the QR code</h3><p>Your eSIM arrives by email with a QR code. Scan it from Settings and it installs in seconds.</p></span></button></li>
+        <li><button class="step" type="button" aria-pressed="false" data-step="1"><span class="n">2</span><span><h3>Install your eSIM</h3><p>Your eSIM arrives by email with simple steps. Add it from your phone's Settings in under a minute.</p></span></button></li>
         <li><button class="step" type="button" aria-pressed="false" data-step="2"><span class="n">3</span><span><h3>Land and switch on</h3><p>Turn on the Roam Caller line and data roaming. You're on the best local network before baggage claim.</p></span></button></li>
       </ol>
     </div>
@@ -421,8 +416,8 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
           </div>
           <div class="scr">
             <h4>Install eSIM</h4>
-            <p style="color:#6b6886">Settings › Mobile data › Add eSIM › Use QR code</p>
-            <div class="qr"></div>
+            <p style="color:#6b6886">Settings › Mobile data › Add eSIM</p>
+            <div class="row"><b>Roam Caller eSIM</b><span>Ready</span></div>
             <div class="cta">Install automatically</div>
           </div>
           <div class="scr">
@@ -501,7 +496,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       <article class="ind">
         <span class="tag">Travel agencies</span>
         <h3>The last item on every itinerary</h3>
-        <p>Add data to Hajj, Umrah, Dubai and Europe packages, with your agency's name on the QR email.</p>
+        <p>Add data to Hajj, Umrah, Dubai and Europe packages, with your agency's name on the eSIM email.</p>
         <ul><li>Commission on every activation</li><li>Group plans for pilgrim batches</li><li>One dashboard for every traveller</li></ul>
       </article>
       <article class="ind">
@@ -550,7 +545,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       <div class="compat-card">
         <h3>The 10-second check</h3>
         <div class="dial"><code>*#06#</code><p>Dial this on your phone. If you see an <b>EID</b> number, your phone supports eSIM.</p></div>
-        <p style="color:var(--muted)">No EID? You can still buy for a family member's phone and send the QR code to them.</p>
+        <p style="color:var(--muted)">No EID? You can still buy for a family member's phone and send the eSIM to them.</p>
       </div>
       <div class="compat-card">
         <h3>Phones that work</h3>
@@ -601,7 +596,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       <p>Our support team answers in English, French and Arabic, any hour.</p>
     </div>
     <div class="faq">
-      <details open><summary>What is an eSIM?</summary><p>An eSIM is a SIM card built into your phone. Instead of putting in a plastic SIM, you scan a QR code and the plan downloads. You can keep your physical home SIM in at the same time.</p></details>
+      <details open><summary>What is an eSIM?</summary><p>An eSIM is a SIM card built into your phone. Instead of putting in a plastic SIM, you add it from your phone's settings and the plan downloads. You can keep your physical home SIM in at the same time.</p></details>
       <details><summary>Will I still get calls and SMS on my Nigerian (or Ghanaian, Kenyan…) number?</summary><p>Yes. Leave your home SIM switched on for calls and texts, and set Roam Caller as your mobile data line. Your WhatsApp account stays on your home number. Your home network may charge for calls you receive abroad.</p></details>
       <details><summary>When does my plan start counting days?</summary><p>Validity starts when the eSIM first connects to a network in your destination, not when you buy it. Buy a week early and install it at home.</p></details>
       <details><summary>Can I top up if I run out?</summary><p>Yes. Top up from your account or from the link in your email. The new data lands on the same eSIM, so there is nothing to reinstall.</p></details>
