@@ -4,7 +4,8 @@ import LegalPage from "../LegalPage";
 export const metadata: Metadata = {
   title: "API documentation",
   description: "The Roam Caller partner API: sell travel eSIMs for 108+ countries inside your product.",
-  alternates: { canonical: "/docs" },
+  // Shared with partners directly; kept out of search engines and not linked from the site.
+  robots: { index: false, follow: false },
 };
 
 // Rendered from the repo's docs/API.md, so the page and the file never disagree.
