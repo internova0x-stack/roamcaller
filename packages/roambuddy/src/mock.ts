@@ -2,7 +2,7 @@
 // Its response shapes are our ASSUMPTIONS (see extract.ts) and must be updated
 // to match the real API after the first sandbox order.
 //
-// Failure switches, by plan id: 9001 fails on request, 9002 fails on complete,
+// Failure switches, by plan id (country code ZZ, so they stay out of real country searches): 9001 fails on request, 9002 fails on complete,
 // 9003 completes but its order details show no eSIM while 9003 is in state.delayedPlans.
 
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from "node:http";
@@ -22,9 +22,9 @@ export const MOCK_PLANS = [
   { plan_id: 102, name: "United Arab Emirates 5GB 30 days", countries: ["AE"], data_gb: 5, validity_days: 30, price: 9.2 },
   { plan_id: 103, name: "Saudi Arabia 10GB 30 days", countries: ["SA"], data_gb: 10, validity_days: 30, price: 15 },
   { plan_id: 104, name: "Africa 3GB 15 days", countries: ["NG", "GH", "KE", "ZA", "EG", "MA"], data_gb: 3, validity_days: 15, price: 10 },
-  { plan_id: 9001, name: "Test: fails on request", countries: ["GB"], data_gb: 1, validity_days: 7, price: 1 },
-  { plan_id: 9002, name: "Test: fails on complete", countries: ["GB"], data_gb: 1, validity_days: 7, price: 1 },
-  { plan_id: 9003, name: "Test: delivery delayed", countries: ["GB"], data_gb: 1, validity_days: 7, price: 1 },
+  { plan_id: 9001, name: "Sandbox test: fails on request", countries: ["ZZ"], data_gb: 1, validity_days: 7, price: 1 },
+  { plan_id: 9002, name: "Sandbox test: fails on complete", countries: ["ZZ"], data_gb: 1, validity_days: 7, price: 1 },
+  { plan_id: 9003, name: "Sandbox test: delivery delayed", countries: ["ZZ"], data_gb: 1, validity_days: 7, price: 1 },
 ];
 
 const TOKEN = "mock-token";

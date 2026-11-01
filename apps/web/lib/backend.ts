@@ -10,6 +10,8 @@ interface Backend {
   db: Db;
   rbFor: RoamBuddyFor;
   app: FastifyInstance;
+  /** The API listening on a private local port, e.g. http://127.0.0.1:39211 */
+  baseUrl: string;
 }
 
 let backend: Promise<Backend> | null = null;
@@ -19,8 +21,10 @@ export function getBackend(): Promise<Backend> {
     const { db } = connect(undefined, { max: 3 });
     const rbFor = roamBuddyFromEnv();
     const app = buildApp({ db, rbFor, logger: { level: process.env.LOG_LEVEL ?? "warn" } });
-    await app.ready();
-    return { db, rbFor, app };
+    // Listening on localhost (rather than app.inject) avoids light-my-request, whose
+    // ES-module dependency can't be loaded inside Vercel's bundled functions.
+    const baseUrl = await app.listen({ host: "127.0.0.1", port: 0 });
+    return { db, rbFor, app, baseUrl };
   })();
   backend.catch(() => {
     backend = null; // retry on the next request instead of caching a failure
