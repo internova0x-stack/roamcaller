@@ -210,6 +210,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .scr .row .flag{--s:26px}
 .scr .row b{flex:1}
 .scr .cta{margin-top:auto;background:#fa2d48;color:#ffffff;border-radius:999px;padding:12px;text-align:center;font-weight:700}
+.qr{align-self:center;width:150px;height:150px;border-radius:14px;padding:10px;background:#fff;box-shadow:0 0 0 2px #14112b;
+  background-image:
+   linear-gradient(#14112b,#14112b),linear-gradient(#14112b,#14112b),linear-gradient(#14112b,#14112b);
+  background-size:36px 36px;background-repeat:no-repeat;background-position:10px 10px,104px 10px,10px 104px;position:relative}
+.qr::after{content:"";position:absolute;inset:52px 52px 10px 52px;background:repeating-conic-gradient(#14112b 0 25%,#fff 0 50%) 0 0/16px 16px}
 .signal{align-self:center;display:flex;gap:6px;align-items:flex-end;height:70px;margin-top:10px}
 .signal i{width:16px;border-radius:5px;background:#16a35b}
 .signal i:nth-child(1){height:25%}.signal i:nth-child(2){height:50%}.signal i:nth-child(3){height:75%}.signal i:nth-child(4){height:100%}
@@ -399,7 +404,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       </div>
       <ol class="steps">
         <li><button class="step" type="button" aria-pressed="true" data-step="0"><span class="n">1</span><span><h3>Choose your plan</h3><p>Pick a country or region and the data you need. Pay by card, bank transfer or mobile money.</p></span></button></li>
-        <li><button class="step" type="button" aria-pressed="false" data-step="1"><span class="n">2</span><span><h3>Install your eSIM</h3><p>Your eSIM arrives by email with simple steps. Add it from your phone's Settings in under a minute.</p></span></button></li>
+        <li><button class="step" type="button" aria-pressed="false" data-step="1"><span class="n">2</span><span><h3>Scan the QR code</h3><p>Your eSIM arrives by email with a QR code. Scan it from Settings and it installs in seconds.</p></span></button></li>
         <li><button class="step" type="button" aria-pressed="false" data-step="2"><span class="n">3</span><span><h3>Land and switch on</h3><p>Turn on the Roam Caller line and data roaming. You're on the best local network before baggage claim.</p></span></button></li>
       </ol>
     </div>
@@ -416,8 +421,8 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
           </div>
           <div class="scr">
             <h4>Install eSIM</h4>
-            <p style="color:#6b6886">Settings › Mobile data › Add eSIM</p>
-            <div class="row"><b>Roam Caller eSIM</b><span>Ready</span></div>
+            <p style="color:#6b6886">Settings › Mobile data › Add eSIM › Use QR code</p>
+            <div class="qr"></div>
             <div class="cta">Install automatically</div>
           </div>
           <div class="scr">
